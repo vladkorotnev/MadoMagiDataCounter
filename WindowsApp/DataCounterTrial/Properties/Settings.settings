@@ -1,0 +1,42 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DataCounterTrial.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="CreditsTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Credits</Value>
+    </Setting>
+    <Setting Name="PayoutsTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Payouts</Value>
+    </Setting>
+    <Setting Name="ReturnTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Return Rate</Value>
+    </Setting>
+    <Setting Name="TimerTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Play Time</Value>
+    </Setting>
+    <Setting Name="SmallBonusTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">プチBONUS</Value>
+    </Setting>
+    <Setting Name="SmallTimeTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">... since</Value>
+    </Setting>
+    <Setting Name="BigBonusTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">BIG BONUS</Value>
+    </Setting>
+    <Setting Name="BigTimeTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">... since</Value>
+    </Setting>
+    <Setting Name="AlertTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Alarm</Value>
+    </Setting>
+    <Setting Name="Unk1Title" Type="System.String" Scope="User">
+      <Value Profile="(Default)">?? 1</Value>
+    </Setting>
+    <Setting Name="Unk2Title" Type="System.String" Scope="User">
+      <Value Profile="(Default)">?? 2</Value>
+    </Setting>
+    <Setting Name="LastCOM" Type="System.String" Scope="User">
+      <Value Profile="(Default)">COM5</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

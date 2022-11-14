@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32802.440
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCounter", "DataCounterTrial\DataCounter.csproj", "{1F251369-C00F-4DA4-A0FB-8F0E89325D3B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F251369-C00F-4DA4-A0FB-8F0E89325D3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F251369-C00F-4DA4-A0FB-8F0E89325D3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F251369-C00F-4DA4-A0FB-8F0E89325D3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F251369-C00F-4DA4-A0FB-8F0E89325D3B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DB9A51A7-4C7E-467F-8684-3B5D536C026E}
+	EndGlobalSection
+EndGlobal
