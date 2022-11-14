@@ -85,6 +85,9 @@ namespace MadoMagiDataCounter
             stsTime.Value = String.Format("{0:h\\:mm\\:ss}", viewModel.Timer.TotalElapsed);
             stsBigBonusTime.Value = timerOrEmpty(viewModel.Timer.SinceLastBigBonus);
             stsSmallBonusTime.Value = timerOrEmpty(viewModel.Timer.SinceLastSmallBonus);
+
+            double retRatio = Math.Truncate(viewModel.State.ReturnRatio * 100 * 100) / 100;
+            stsReturn.Value = String.Format("{0:N2}%", retRatio); 
         }
 
         private String timerOrEmpty(TimeSpan value)
