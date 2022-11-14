@@ -64,6 +64,7 @@ namespace MadoMagiDataCounter
         {
             get
             {
+                if (Credits == 0) return 1.0;
                 return ((double)Payouts / (double)Credits);
             }
         }
