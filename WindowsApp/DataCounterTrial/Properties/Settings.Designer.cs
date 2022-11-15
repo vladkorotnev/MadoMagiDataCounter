@@ -85,18 +85,6 @@ namespace MadoMagiDataCounter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("... since")]
-        public string SmallTimeTitle {
-            get {
-                return ((string)(this["SmallTimeTitle"]));
-            }
-            set {
-                this["SmallTimeTitle"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("BIG BONUS")]
         public string BigBonusTitle {
             get {
@@ -104,18 +92,6 @@ namespace MadoMagiDataCounter.Properties {
             }
             set {
                 this["BigBonusTitle"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("... since")]
-        public string BigTimeTitle {
-            get {
-                return ((string)(this["BigTimeTitle"]));
-            }
-            set {
-                this["BigTimeTitle"] = value;
             }
         }
         
@@ -164,6 +140,18 @@ namespace MadoMagiDataCounter.Properties {
             }
             set {
                 this["LastCOM"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Spins")]
+        public string SpinCountTitle {
+            get {
+                return ((string)(this["SpinCountTitle"]));
+            }
+            set {
+                this["SpinCountTitle"] = value;
             }
         }
     }

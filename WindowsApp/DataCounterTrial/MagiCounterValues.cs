@@ -9,8 +9,6 @@ namespace MadoMagiDataCounter
     class MagiCounterTimes
     {
         public DateTime GameStartDate { get; private set; }
-        public DateTime LastBigBonus { get; private set; }
-        public DateTime LastSmallBonus { get; private set; }
 
         private TimeSpan ElapsedFrom(DateTime time)
         {
@@ -20,9 +18,6 @@ namespace MadoMagiDataCounter
         }
 
         public TimeSpan TotalElapsed {  get { return ElapsedFrom(GameStartDate); } }
-        public TimeSpan SinceLastBigBonus {  get { return ElapsedFrom(LastBigBonus); } }
-        public TimeSpan SinceLastSmallBonus {  get { return ElapsedFrom(LastSmallBonus); } }
-        public TimeSpan SinceAnyBonus { get { return ElapsedFrom(LastBigBonus > LastSmallBonus ? LastBigBonus : LastSmallBonus); } }
 
         public MagiCounterTimes()
         {
@@ -32,20 +27,12 @@ namespace MadoMagiDataCounter
         public void ResetAll()
         {
             GameStartDate = DateTime.MaxValue;
-            LastBigBonus = DateTime.MaxValue;
-            LastSmallBonus = DateTime.MaxValue;
         }
 
         public void StartCountingIfNeeded()
         {
             if (GameStartDate < DateTime.Now) return;
             GameStartDate = DateTime.Now;
-        }
-
-        public void BonusHappened(bool isBig)
-        {
-            if (isBig) LastBigBonus = DateTime.Now;
-            else LastSmallBonus = DateTime.Now;
         }
     }
 
@@ -59,7 +46,7 @@ namespace MadoMagiDataCounter
         public int UnknownBonus { get; set; }
         public int UnknownCounter { get; set; }
         public bool Alert { get; set; }
-
+        public int SpinCount { get; set; }
         public double ReturnRatio
         {
             get
@@ -75,6 +62,7 @@ namespace MadoMagiDataCounter
             Payouts = 0;
             SmallBonus = 0;
             BigBonus = 0;
+            SpinCount = 0;
             Alert = false;
         }
     }

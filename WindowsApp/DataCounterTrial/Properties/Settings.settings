@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DataCounterTrial.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MadoMagiDataCounter.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="CreditsTitle" Type="System.String" Scope="User">
@@ -17,14 +17,8 @@
     <Setting Name="SmallBonusTitle" Type="System.String" Scope="User">
       <Value Profile="(Default)">プチBONUS</Value>
     </Setting>
-    <Setting Name="SmallTimeTitle" Type="System.String" Scope="User">
-      <Value Profile="(Default)">... since</Value>
-    </Setting>
     <Setting Name="BigBonusTitle" Type="System.String" Scope="User">
       <Value Profile="(Default)">BIG BONUS</Value>
-    </Setting>
-    <Setting Name="BigTimeTitle" Type="System.String" Scope="User">
-      <Value Profile="(Default)">... since</Value>
     </Setting>
     <Setting Name="AlertTitle" Type="System.String" Scope="User">
       <Value Profile="(Default)">Alarm</Value>
@@ -37,6 +31,9 @@
     </Setting>
     <Setting Name="LastCOM" Type="System.String" Scope="User">
       <Value Profile="(Default)">COM5</Value>
+    </Setting>
+    <Setting Name="SpinCountTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Spins</Value>
     </Setting>
   </Settings>
 </SettingsFile>

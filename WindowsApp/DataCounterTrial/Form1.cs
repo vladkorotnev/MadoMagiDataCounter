@@ -39,12 +39,40 @@ namespace MadoMagiDataCounter
 
                 cmbCom.SelectedIndex = cmbCom.Items.IndexOf(prefs.LastCOM);
             }
+
+
+            viewModel.History.NewHistoryItem += OnNewGraphItem;
+        }
+
+        private void OnNewGraphItem(object sender, MagiBonusHistoryEntry e)
+        {
+            Action x = delegate ()
+            {
+                int moneyIdx = chartMoney.Series[0].Points.Count - 1;
+                chartMoney.Series[0].Points.RemoveAt(moneyIdx);
+                chartMoney.Series[0].Points.AddY(e.CoinDelta);
+                chartMoney.Series[0].Points.AddY(0);
+                chartMoney.ChartAreas[0].RecalculateAxesScale();
+                chartMoney.Update();
+
+                chartBonuses.Series[0].Points.InsertY(1, e.GamesNeeded);
+                chartBonuses.Series[1].Points.InsertY(1, e.BonusType == MagiBonusType.Big ? 1 : 0);
+                chartBonuses.Series[2].Points.InsertY(1, e.BonusType == MagiBonusType.Regular ? 1 : 0);
+                chartBonuses.ChartAreas[0].RecalculateAxesScale();
+                chartBonuses.Update();
+            };
+
+            if (InvokeRequired)
+                Invoke(x);
+            else
+                x();
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
             serialPort.PortName = (string)cmbCom.SelectedItem;
             serialPort.Open();
+            ResetAll();
 
             cmbCom.Visible = false;
             btnStart.Visible = false;
@@ -83,26 +111,48 @@ namespace MadoMagiDataCounter
             stsCredits.Value = viewModel.State.Credits.ToString();
 
             stsTime.Value = String.Format("{0:h\\:mm\\:ss}", viewModel.Timer.TotalElapsed);
-            stsBigBonusTime.Value = timerOrEmpty(viewModel.Timer.SinceLastBigBonus);
-            stsSmallBonusTime.Value = timerOrEmpty(viewModel.Timer.SinceLastSmallBonus);
+            stsSpinCount.Value = viewModel.State.SpinCount.ToString();
 
             double retRatio = Math.Truncate(viewModel.State.ReturnRatio * 100 * 100) / 100;
-            stsReturn.Value = String.Format("{0:N2}%", retRatio); 
-        }
+            stsReturn.Value = String.Format("{0:N2}", retRatio);
 
-        private String timerOrEmpty(TimeSpan value)
-        {
-            if (value == TimeSpan.Zero) return "-:--:--";
-            return String.Format("{0:h\\:mm\\:ss}", value);
+            int moneyIdx = chartMoney.Series[0].Points.Count - 1;
+            chartMoney.Series[0].Points.RemoveAt(moneyIdx);
+            chartMoney.Series[0].Points.AddY((viewModel.State.Payouts - viewModel.History.LastPayouts) - (viewModel.State.Credits - viewModel.History.LastCredits));
+            chartMoney.ChartAreas[0].RecalculateAxesScale();
+            chartMoney.Update();
+
+            chartBonuses.Series[0].Points.RemoveAt(0);
+            chartBonuses.Series[0].Points.InsertY(0, viewModel.State.SpinCount);
+            chartBonuses.ChartAreas[0].RecalculateAxesScale();
+            chartBonuses.Update();
+
         }
 
         private void btnRstAll_Click(object sender, EventArgs e)
         {
             if(MessageBox.Show("Reset ALL counters?", "Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
             {
-                viewModel.Reset();
-                updateValues();
+                ResetAll();
             }
+        }
+
+        private void ResetAll()
+        {
+            viewModel.Reset();
+            updateValues();
+
+            chartMoney.Series[0].Points.Clear();
+            chartMoney.Series[0].Points.AddXY(0, 0);
+            chartMoney.Series[0].Points.AddY(0);
+
+
+            chartBonuses.Series[0].Points.Clear();
+            chartBonuses.Series[0].Points.AddY(0);
+            chartBonuses.Series[1].Points.Clear();
+            chartBonuses.Series[1].Points.AddY(0);
+            chartBonuses.Series[2].Points.Clear();
+            chartBonuses.Series[2].Points.AddY(0);
         }
 
         private void btnStop_Click(object sender, EventArgs e)
