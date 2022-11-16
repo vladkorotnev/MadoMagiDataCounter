@@ -57,6 +57,7 @@ namespace MadoMagiDataCounter
             this.label1 = new System.Windows.Forms.Label();
             this.chartBonuses = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartMoney = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.stsGameCount = new MadoMagiDataCounter.CountView();
             this.stsSpinCount = new MadoMagiDataCounter.CountView();
             this.stsTime = new MadoMagiDataCounter.CountView();
             this.stsReturn = new MadoMagiDataCounter.CountView();
@@ -136,10 +137,14 @@ namespace MadoMagiDataCounter
             // chartBonuses
             // 
             this.chartBonuses.BackColor = System.Drawing.Color.Transparent;
+            chartArea1.AxisX.IsLabelAutoFit = false;
+            chartArea1.AxisX.LabelStyle.Font = new System.Drawing.Font("MS Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             chartArea1.AxisX.LabelStyle.ForeColor = System.Drawing.Color.DarkGray;
             chartArea1.AxisX.LineColor = System.Drawing.Color.DarkGray;
             chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
             chartArea1.AxisX.TitleForeColor = System.Drawing.Color.DarkGray;
+            chartArea1.AxisY.IsLabelAutoFit = false;
+            chartArea1.AxisY.LabelStyle.Font = new System.Drawing.Font("MS Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             chartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.DarkGray;
             chartArea1.AxisY.LineColor = System.Drawing.Color.DarkGray;
             chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
@@ -159,6 +164,7 @@ namespace MadoMagiDataCounter
             this.chartBonuses.Name = "chartBonuses";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn;
+            series1.Font = new System.Drawing.Font("MS Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             series1.Label = "#VAL{N0}G";
             series1.LabelForeColor = System.Drawing.Color.White;
             series1.Name = "srsSpins";
@@ -192,14 +198,18 @@ namespace MadoMagiDataCounter
             // chartMoney
             // 
             this.chartMoney.BackColor = System.Drawing.Color.Transparent;
+            chartArea2.AxisX.IsLabelAutoFit = false;
+            chartArea2.AxisX.LabelStyle.Font = new System.Drawing.Font("MS Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             chartArea2.AxisX.LabelStyle.ForeColor = System.Drawing.Color.DarkGray;
             chartArea2.AxisX.LineColor = System.Drawing.Color.DarkGray;
-            chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray;
             chartArea2.AxisX.TitleForeColor = System.Drawing.Color.DarkGray;
+            chartArea2.AxisY.IsLabelAutoFit = false;
             chartArea2.AxisY.IsStartedFromZero = false;
+            chartArea2.AxisY.LabelStyle.Font = new System.Drawing.Font("MS Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             chartArea2.AxisY.LabelStyle.ForeColor = System.Drawing.Color.DarkGray;
             chartArea2.AxisY.LineColor = System.Drawing.Color.DarkGray;
-            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray;
             chartArea2.AxisY.TitleForeColor = System.Drawing.Color.White;
             chartArea2.AxisY2.IsLabelAutoFit = false;
             chartArea2.AxisY2.LabelStyle.Enabled = false;
@@ -208,14 +218,17 @@ namespace MadoMagiDataCounter
             chartArea2.AxisY2.Minimum = 0D;
             chartArea2.BackColor = System.Drawing.Color.Transparent;
             chartArea2.BackSecondaryColor = System.Drawing.Color.Transparent;
-            chartArea2.BorderColor = System.Drawing.Color.White;
+            chartArea2.BorderColor = System.Drawing.Color.Transparent;
             chartArea2.Name = "ChartArea1";
             this.chartMoney.ChartAreas.Add(chartArea2);
             this.chartMoney.Location = new System.Drawing.Point(243, 260);
             this.chartMoney.Name = "chartMoney";
+            series4.BorderWidth = 3;
             series4.ChartArea = "ChartArea1";
             series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Label = "#VAL{N0} coins";
+            series4.Color = System.Drawing.Color.White;
+            series4.Font = new System.Drawing.Font("MS Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            series4.Label = "#VAL{N0}";
             series4.LabelForeColor = System.Drawing.Color.White;
             series4.Name = "srsMoney";
             series4.Points.Add(dataPoint10);
@@ -229,11 +242,23 @@ namespace MadoMagiDataCounter
             this.chartMoney.TabIndex = 18;
             this.chartMoney.Text = "chart1";
             // 
+            // stsGameCount
+            // 
+            this.stsGameCount.BackColor = System.Drawing.Color.Transparent;
+            this.stsGameCount.DataBindings.Add(new System.Windows.Forms.Binding("Title", global::MadoMagiDataCounter.Properties.Settings.Default, "GameCountTitle", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.stsGameCount.Location = new System.Drawing.Point(281, 68);
+            this.stsGameCount.Name = "stsGameCount";
+            this.stsGameCount.Size = new System.Drawing.Size(213, 47);
+            this.stsGameCount.TabIndex = 19;
+            this.stsGameCount.TextWidth = 80;
+            this.stsGameCount.Title = global::MadoMagiDataCounter.Properties.Settings.Default.GameCountTitle;
+            this.stsGameCount.Value = "---";
+            // 
             // stsSpinCount
             // 
             this.stsSpinCount.BackColor = System.Drawing.Color.Transparent;
             this.stsSpinCount.DataBindings.Add(new System.Windows.Forms.Binding("Title", global::MadoMagiDataCounter.Properties.Settings.Default, "SpinCountTitle", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.stsSpinCount.Location = new System.Drawing.Point(261, 12);
+            this.stsSpinCount.Location = new System.Drawing.Point(281, 12);
             this.stsSpinCount.Name = "stsSpinCount";
             this.stsSpinCount.Size = new System.Drawing.Size(213, 47);
             this.stsSpinCount.TabIndex = 14;
@@ -305,7 +330,7 @@ namespace MadoMagiDataCounter
             // 
             this.stsSmallBonus.BackColor = System.Drawing.Color.Transparent;
             this.stsSmallBonus.DataBindings.Add(new System.Windows.Forms.Binding("Title", global::MadoMagiDataCounter.Properties.Settings.Default, "SmallBonusTitle", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.stsSmallBonus.Location = new System.Drawing.Point(261, 68);
+            this.stsSmallBonus.Location = new System.Drawing.Point(281, 124);
             this.stsSmallBonus.Name = "stsSmallBonus";
             this.stsSmallBonus.Size = new System.Drawing.Size(213, 47);
             this.stsSmallBonus.TabIndex = 3;
@@ -329,7 +354,7 @@ namespace MadoMagiDataCounter
             // 
             this.stsBigBonus.BackColor = System.Drawing.Color.Transparent;
             this.stsBigBonus.DataBindings.Add(new System.Windows.Forms.Binding("Title", global::MadoMagiDataCounter.Properties.Settings.Default, "BigBonusTitle", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.stsBigBonus.Location = new System.Drawing.Point(261, 124);
+            this.stsBigBonus.Location = new System.Drawing.Point(281, 180);
             this.stsBigBonus.Name = "stsBigBonus";
             this.stsBigBonus.Size = new System.Drawing.Size(213, 47);
             this.stsBigBonus.TabIndex = 1;
@@ -355,6 +380,7 @@ namespace MadoMagiDataCounter
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(734, 452);
+            this.Controls.Add(this.stsGameCount);
             this.Controls.Add(this.chartMoney);
             this.Controls.Add(this.chartBonuses);
             this.Controls.Add(this.label1);
@@ -408,6 +434,7 @@ namespace MadoMagiDataCounter
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartBonuses;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartMoney;
+        private CountView stsGameCount;
     }
 }
 

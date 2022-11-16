@@ -154,5 +154,17 @@ namespace MadoMagiDataCounter.Properties {
                 this["SpinCountTitle"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Rounds")]
+        public string GameCountTitle {
+            get {
+                return ((string)(this["GameCountTitle"]));
+            }
+            set {
+                this["GameCountTitle"] = value;
+            }
+        }
     }
 }

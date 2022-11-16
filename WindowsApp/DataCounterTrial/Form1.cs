@@ -40,26 +40,44 @@ namespace MadoMagiDataCounter
                 cmbCom.SelectedIndex = cmbCom.Items.IndexOf(prefs.LastCOM);
             }
 
+#if DEBUG
+            cmbCom.Items.Add("dummy");
+#endif
 
             viewModel.History.NewHistoryItem += OnNewGraphItem;
         }
 
-        private void OnNewGraphItem(object sender, MagiBonusHistoryEntry e)
+#if DEBUG
+        private void OnDummyByte(object sender, int e)
+        {
+            viewModel.ReceiveDataByte(e);
+            updateValues();
+        }
+#endif
+
+        private void OnNewGraphItem(object sender, MagiEventHistoryItem e)
         {
             Action x = delegate ()
             {
-                int moneyIdx = chartMoney.Series[0].Points.Count - 1;
-                chartMoney.Series[0].Points.RemoveAt(moneyIdx);
-                chartMoney.Series[0].Points.AddY(e.CoinDelta);
-                chartMoney.Series[0].Points.AddY(0);
-                chartMoney.ChartAreas[0].RecalculateAxesScale();
-                chartMoney.Update();
-
-                chartBonuses.Series[0].Points.InsertY(1, e.GamesNeeded);
-                chartBonuses.Series[1].Points.InsertY(1, e.BonusType == MagiBonusType.Big ? 1 : 0);
-                chartBonuses.Series[2].Points.InsertY(1, e.BonusType == MagiBonusType.Regular ? 1 : 0);
-                chartBonuses.ChartAreas[0].RecalculateAxesScale();
-                chartBonuses.Update();
+                if(e.EventType == MagiEventType.BigBonus || e.EventType == MagiEventType.RegularBonus)
+                {
+                    chartBonuses.Series[0].Points.InsertY(1, e.GamesNeeded);
+                    chartBonuses.Series[1].Points.InsertY(1, e.EventType == MagiEventType.BigBonus ? 1 : 0);
+                    chartBonuses.Series[2].Points.InsertY(1, e.EventType == MagiEventType.RegularBonus ? 1 : 0);
+                    chartBonuses.ChartAreas[0].RecalculateAxesScale();
+                    chartBonuses.Update();
+                } 
+                else
+                {
+                    if (e.EventType == MagiEventType.Payout)
+                    {
+                        int moneyIdx = chartMoney.Series[0].Points.Count - 1;
+                        chartMoney.Series[0].Points.RemoveAt(moneyIdx);
+                    }
+                    chartMoney.Series[0].Points.AddY(e.CoinDelta);
+                    chartMoney.ChartAreas[0].RecalculateAxesScale();
+                    chartMoney.Update();
+                }
             };
 
             if (InvokeRequired)
@@ -70,13 +88,27 @@ namespace MadoMagiDataCounter
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            serialPort.PortName = (string)cmbCom.SelectedItem;
-            serialPort.Open();
+#if DEBUG
+            if(cmbCom.SelectedItem.ToString() == "dummy")
+            {
+                frmEmulator testMode = new frmEmulator();
+                testMode.Show();
+                testMode.Left = this.Left + this.Width + 5;
+                testMode.Top = this.Top;
+                testMode.OnByteReceived += OnDummyByte;
+            }
+            else
+#endif
+            {
+                serialPort.PortName = (string)cmbCom.SelectedItem;
+                serialPort.Open();
+                btnStop.Visible = true;
+            }
+
             ResetAll();
 
             cmbCom.Visible = false;
             btnStart.Visible = false;
-            btnStop.Visible = true;
             timer.Enabled = true;
         }
 
@@ -112,18 +144,13 @@ namespace MadoMagiDataCounter
 
             stsTime.Value = String.Format("{0:h\\:mm\\:ss}", viewModel.Timer.TotalElapsed);
             stsSpinCount.Value = viewModel.State.SpinCount.ToString();
+            stsGameCount.Value = viewModel.State.GameCount.ToString();
 
             double retRatio = Math.Truncate(viewModel.State.ReturnRatio * 100 * 100) / 100;
             stsReturn.Value = String.Format("{0:N2}", retRatio);
 
-            int moneyIdx = chartMoney.Series[0].Points.Count - 1;
-            chartMoney.Series[0].Points.RemoveAt(moneyIdx);
-            chartMoney.Series[0].Points.AddY((viewModel.State.Payouts - viewModel.History.LastPayouts) - (viewModel.State.Credits - viewModel.History.LastCredits));
-            chartMoney.ChartAreas[0].RecalculateAxesScale();
-            chartMoney.Update();
-
             chartBonuses.Series[0].Points.RemoveAt(0);
-            chartBonuses.Series[0].Points.InsertY(0, viewModel.State.SpinCount);
+            chartBonuses.Series[0].Points.InsertY(0, viewModel.State.GameCount);
             chartBonuses.ChartAreas[0].RecalculateAxesScale();
             chartBonuses.Update();
 
@@ -143,7 +170,6 @@ namespace MadoMagiDataCounter
             updateValues();
 
             chartMoney.Series[0].Points.Clear();
-            chartMoney.Series[0].Points.AddXY(0, 0);
             chartMoney.Series[0].Points.AddY(0);
 
 

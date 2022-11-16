@@ -42,10 +42,10 @@ namespace MadoMagiDataCounter
             // 
             this.tbName.BackColor = System.Drawing.Color.Black;
             this.tbName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbName.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tbName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbName.ForeColor = System.Drawing.Color.White;
-            this.tbName.Location = new System.Drawing.Point(0, 28);
+            this.tbName.Location = new System.Drawing.Point(0, 0);
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(75, 19);
             this.tbName.TabIndex = 1;

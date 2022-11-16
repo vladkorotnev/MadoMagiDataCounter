@@ -46,6 +46,7 @@ namespace MadoMagiDataCounter
         public int UnknownBonus { get; set; }
         public int UnknownCounter { get; set; }
         public bool Alert { get; set; }
+        public int GameCount { get; set; }
         public int SpinCount { get; set; }
         public double ReturnRatio
         {
@@ -62,6 +63,7 @@ namespace MadoMagiDataCounter
             Payouts = 0;
             SmallBonus = 0;
             BigBonus = 0;
+            GameCount = 0;
             SpinCount = 0;
             Alert = false;
         }

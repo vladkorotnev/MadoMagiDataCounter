@@ -13,7 +13,11 @@ namespace MadoMagiDataCounter
         public MagiCounterValues State { get; private set; }
         public MagiCounterTimes Timer { get; private set; }
         public MagiBonusHistoryController History { get; private set; }
-        private Timer spinCountTimer = new Timer();
+
+        private Timer gameCountTimer = new Timer();
+        private Timer payoutTimer = new Timer();
+        private int gameCountBetDelta = 0;
+        private const int BET_OF_ONE_GAME = 3;
 
         public MagiCounter()
         {
@@ -21,16 +25,36 @@ namespace MadoMagiDataCounter
             Timer = new MagiCounterTimes();
             History = new MagiBonusHistoryController();
             
-            spinCountTimer.Enabled = false;
-            spinCountTimer.Interval = 300;
-            spinCountTimer.AutoReset = false;
-            spinCountTimer.Elapsed += SpinCountTimer_Elapsed;
+            gameCountTimer.Enabled = false;
+            gameCountTimer.Interval = 300;
+            gameCountTimer.AutoReset = false;
+            gameCountTimer.Elapsed += SpinCountTimer_Elapsed;
+
+            payoutTimer.Enabled = false;
+            payoutTimer.Interval = 300;
+            payoutTimer.AutoReset = false;
+            payoutTimer.Elapsed += PayoutTimer_Elapsed;
+        }
+
+        private void PayoutTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            History.Record(MagiEventType.Payout, State.GameCount, State.Credits, State.Payouts);
+            payoutTimer.Stop();
         }
 
         private void SpinCountTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
+            // Only count a spin with a bet of 3 as one game
+            // Reason: within bonus mode the bet is 2 or 1
+            if(gameCountBetDelta == BET_OF_ONE_GAME)
+            {
+                State.GameCount++;
+            }
+
             State.SpinCount++;
-            spinCountTimer.Stop();
+            History.Record(MagiEventType.GameStart, State.GameCount, State.Credits, State.Payouts);
+            gameCountTimer.Stop();
+            gameCountBetDelta = 0;
         }
 
         public void Reset()
@@ -38,7 +62,8 @@ namespace MadoMagiDataCounter
             State.ResetAll();
             Timer.ResetAll();
             History.Reset();
-            spinCountTimer.Stop();
+            gameCountTimer.Stop();
+            payoutTimer.Stop();
         }
 
         public void ReceiveDataByte(int data)
@@ -59,8 +84,9 @@ namespace MadoMagiDataCounter
                         switch(i)
                         {
                             case 1:
-                                History.Record(MagiBonusType.Big, State.SpinCount, State.Credits, State.Payouts);
+                                History.Record(MagiEventType.BigBonus, State.GameCount, State.Credits, State.Payouts);
                                 State.BigBonus++;
+                                State.GameCount = 0;
                                 State.SpinCount = 0;
                                 break;
 
@@ -69,8 +95,9 @@ namespace MadoMagiDataCounter
                                 break;
 
                             case 3:
-                                History.Record(MagiBonusType.Regular, State.SpinCount, State.Credits, State.Payouts);
+                                History.Record(MagiEventType.RegularBonus, State.GameCount, State.Credits, State.Payouts);
                                 State.SmallBonus++;
+                                State.GameCount = 0;
                                 State.SpinCount = 0;
                                 break;
 
@@ -80,6 +107,8 @@ namespace MadoMagiDataCounter
 
                             case 5:
                                 State.Payouts++;
+                                payoutTimer.Stop();
+                                payoutTimer.Start();
                                 break;
 
                             case 6:
@@ -88,9 +117,10 @@ namespace MadoMagiDataCounter
 
                             case 7:
                                 State.Credits++;
+                                gameCountBetDelta++;
                                 Timer.StartCountingIfNeeded();
-                                spinCountTimer.Stop();
-                                spinCountTimer.Start();
+                                gameCountTimer.Stop();
+                                gameCountTimer.Start();
                                 break;
                         }
                     }

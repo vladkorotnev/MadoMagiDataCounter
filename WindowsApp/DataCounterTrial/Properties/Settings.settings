@@ -35,5 +35,8 @@
     <Setting Name="SpinCountTitle" Type="System.String" Scope="User">
       <Value Profile="(Default)">Spins</Value>
     </Setting>
+    <Setting Name="GameCountTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Rounds</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
