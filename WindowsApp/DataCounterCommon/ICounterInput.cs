@@ -14,16 +14,6 @@ namespace DataCounterCommon
         Running
     }
 
-    public interface ISink<T>
-    {
-        void Signal(T data);
-    }
-
-    public interface ISource<T>
-    {
-        ISink<T> Receiver { get; set; }
-    }
-
     public interface ICounterInput: ISource<int>
     {
         Control GetSettingsPanel();
@@ -35,4 +25,5 @@ namespace DataCounterCommon
         void Start();
         void Stop();
     }
+
 }

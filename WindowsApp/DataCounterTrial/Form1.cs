@@ -56,15 +56,22 @@ namespace MadoMagiDataCounter
                     chartBonuses.Series[2].Points.InsertY(1, e.EventType == MagiEventType.RegularBonus ? 1 : 0);
                     chartBonuses.ChartAreas[0].RecalculateAxesScale();
                     chartBonuses.Update();
-                } 
+
+                    int moneyIdx = chartMoney.Series[0].Points.Count - 1 - viewModel.State.SpinCount + viewModel.State.GameCount;
+                    int newIdx = chartMoney.Series[1].Points.AddXY(moneyIdx, chartMoney.Series[0].Points[moneyIdx].YValues[0]);
+                    chartMoney.Series[1].Points[newIdx].Color = e.EventType == MagiEventType.BigBonus ? Color.Gold : Color.Red;
+                    chartMoney.Series[1].Points[newIdx].Label = e.EventType == MagiEventType.BigBonus ? "BB" : "RB";
+                }
                 else
                 {
+                    int moneyCount = chartMoney.Series[0].Points.Count;
                     if (e.EventType == MagiEventType.Payout)
                     {
-                        int moneyIdx = chartMoney.Series[0].Points.Count - 1;
+                        int moneyIdx = moneyCount - 1;
                         chartMoney.Series[0].Points.RemoveAt(moneyIdx);
+                        moneyCount -= 1;
                     }
-                    chartMoney.Series[0].Points.AddY(e.CoinDelta);
+                    chartMoney.Series[0].Points.AddXY(moneyCount, e.CoinDelta);
                     chartMoney.ChartAreas[0].RecalculateAxesScale();
                     chartMoney.Update();
                 }
@@ -83,7 +90,8 @@ namespace MadoMagiDataCounter
 
             try
             {
-                activePort.Receiver = viewModel;
+                activePort.Receivers.Clear();
+                activePort.Receivers.Add(viewModel);
                 activePort.Start();
             }
             catch(Exception error)
@@ -154,6 +162,7 @@ namespace MadoMagiDataCounter
             updateValues();
 
             chartMoney.Series[0].Points.Clear();
+            chartMoney.Series[1].Points.Clear();
             chartMoney.Series[0].Points.AddY(0);
 
 

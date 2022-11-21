@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataCounterCommon;
 
 namespace DummyInterface
 {
-    public class PortEmulator : DataCounterCommon.ICounterInput
+    public class PortEmulator : Source<int>, ICounterInput
     {
         private CounterInputState _state = CounterInputState.Ready;
         private frmEmulator simulator = new frmEmulator();
@@ -20,10 +21,7 @@ namespace DummyInterface
 
         private void OnSimulatedByte(object sender, int e)
         {
-            if(Receiver != null)
-            {
-                Receiver.Signal(e);
-            }
+            this.NotifySinks(e);
         }
 
         public CounterInputState State
@@ -32,8 +30,6 @@ namespace DummyInterface
         }
 
         public string Name => "Dummy";
-
-        public ISink<int> Receiver { get; set; }
 
         public Control GetSettingsPanel()
         {

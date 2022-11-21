@@ -9,7 +9,7 @@ using DataCounterCommon;
 
 namespace SerialInterface
 {
-    public partial class SerialInterface : ICounterInput
+    public partial class SerialInterface : Source<int>, ICounterInput
     {
         private SerialPort activePort = null;
         private ConfigWindow settingPanel = new ConfigWindow();
@@ -24,8 +24,6 @@ namespace SerialInterface
         }
 
         public string Name => "Serial";
-
-        public ISink<int> Receiver { get; set; }
 
         public Control GetSettingsPanel()
         {
@@ -54,8 +52,7 @@ namespace SerialInterface
             while (activePort.BytesToRead > 0)
             {
                 int data = activePort.ReadByte();
-                if(Receiver != null)
-                    Receiver.Signal(data);
+                NotifySinks(data);
             }
         }
 

@@ -42,8 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Elements\Delay.cs" />
     <Compile Include="ICounterInput.cs" />
     <Compile Include="PluginLoader.cs" />
+    <Compile Include="Elements\Primitives.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -11,7 +11,7 @@ using DataCounterCommon;
 
 namespace LANInterface
 {
-    public class UDPInterface : ICounterInput
+    public class UDPInterface : Source<int>, ICounterInput
     {
         private UdpClient client = null;
         private UDPSettingsPanel settingsPanel = new UDPSettingsPanel();
@@ -27,8 +27,6 @@ namespace LANInterface
         }
 
         public string Name => "UDP";
-
-        public ISink<int> Receiver { get; set; }
 
         public Control GetSettingsPanel()
         {
@@ -47,15 +45,23 @@ namespace LANInterface
         private void onReceive(IAsyncResult res)
         {
             IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 8000);
-            byte[] received = client.EndReceive(res, ref RemoteIpEndPoint);
-            client.BeginReceive(new AsyncCallback(onReceive), null);
+            byte[] received = null;
+
+            try
+            {
+                received = client.EndReceive(res, ref RemoteIpEndPoint);
+                client.BeginReceive(new AsyncCallback(onReceive), null);
+            }
+            catch (Exception e)
+            {
+                client = null;
+                return;
+            }
+
 
             if(received.Length == 1)
             {
-                if(Receiver != null)
-                {
-                    Receiver.Signal(received[0]);
-                }
+                NotifySinks(received[0]);
             }
             else
             {
@@ -69,7 +75,6 @@ namespace LANInterface
         {
             client.Close();
             client.Dispose();
-            client = null;
         }
     }
 }
