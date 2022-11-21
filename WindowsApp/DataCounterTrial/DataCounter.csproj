@@ -50,11 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmEmulator.cs">
+    <Compile Include="frmInterfaceConfig.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmEmulator.Designer.cs">
-      <DependentUpon>frmEmulator.cs</DependentUpon>
+    <Compile Include="frmInterfaceConfig.Designer.cs">
+      <DependentUpon>frmInterfaceConfig.cs</DependentUpon>
     </Compile>
     <Compile Include="MagiBonusHistory.cs" />
     <Compile Include="Form1.cs">
@@ -76,8 +76,8 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmEmulator.resx">
-      <DependentUpon>frmEmulator.cs</DependentUpon>
+    <EmbeddedResource Include="frmInterfaceConfig.resx">
+      <DependentUpon>frmInterfaceConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -105,5 +105,18 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataCounterCommon\DataCounterCommon.csproj">
+      <Project>{c761c644-998c-4763-b840-70572ba1ada3}</Project>
+      <Name>DataCounterCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>mkdir "$(ProjectDir)$(OutDir)\interfaces"
+xcopy /y /d  "$(ProjectDir)\..\DummyInterface\bin\$(Configuration)\*.dll" "$(ProjectDir)$(OutDir)\interfaces"
+xcopy /y /d  "$(ProjectDir)\..\LANInterface\bin\$(Configuration)\*.dll" "$(ProjectDir)$(OutDir)\interfaces"
+xcopy /y /d  "$(ProjectDir)\..\SerialInterface\bin\$(Configuration)\*.dll" "$(ProjectDir)$(OutDir)\interfaces"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using DataCounterCommon;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,10 +16,13 @@ namespace MadoMagiDataCounter
     public partial class Form1 : Form
     {
         private MagiCounter viewModel = new MagiCounter();
+        private List<ICounterInput> inputPorts = new List<ICounterInput>();
+        private ICounterInput activePort = null;
 
         public Form1()
         {
             InitializeComponent();
+            inputPorts = PluginLoader.GetInterfacePlugins(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "interfaces"));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -25,35 +30,20 @@ namespace MadoMagiDataCounter
             var prefs = Properties.Settings.Default;
 
             cmbCom.Items.Clear();
-            foreach(var i in System.IO.Ports.SerialPort.GetPortNames())
+            foreach(var i in inputPorts)
             {
-                cmbCom.Items.Add(i);
+                cmbCom.Items.Add(i.Name);
             }
-
-            if(prefs.LastCOM != null)
-            {
-                if(!cmbCom.Items.Contains(prefs.LastCOM))
-                {
-                    cmbCom.Items.Add(prefs.LastCOM);
-                }
-
-                cmbCom.SelectedIndex = cmbCom.Items.IndexOf(prefs.LastCOM);
-            }
-
-#if DEBUG
-            cmbCom.Items.Add("dummy");
-#endif
+            cmbCom.SelectedIndex = cmbCom.Items.IndexOf(Properties.Settings.Default.LastInterfaceName);
 
             viewModel.History.NewHistoryItem += OnNewGraphItem;
+            viewModel.OnUpdate += OnUpdate;
         }
 
-#if DEBUG
-        private void OnDummyByte(object sender, int e)
+        private void OnUpdate(object sender, MagiCounterValues e)
         {
-            viewModel.ReceiveDataByte(e);
             updateValues();
         }
-#endif
 
         private void OnNewGraphItem(object sender, MagiEventHistoryItem e)
         {
@@ -88,38 +78,32 @@ namespace MadoMagiDataCounter
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-#if DEBUG
-            if(cmbCom.SelectedItem.ToString() == "dummy")
+
+            if (activePort == null) return;
+
+            try
             {
-                frmEmulator testMode = new frmEmulator();
-                testMode.Show();
-                testMode.Left = this.Left + this.Width + 5;
-                testMode.Top = this.Top;
-                testMode.OnByteReceived += OnDummyByte;
+                activePort.Receiver = viewModel;
+                activePort.Start();
             }
-            else
-#endif
+            catch(Exception error)
             {
-                serialPort.PortName = (string)cmbCom.SelectedItem;
-                serialPort.Open();
-                btnStop.Visible = true;
+                MessageBox.Show(
+                        String.Format("An error occurred when connecting via {0}:\n{1}", activePort.Name, error.Message),
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                );
+                return;
             }
+            btnStop.Visible = true;
 
             ResetAll();
 
             cmbCom.Visible = false;
+            btnConfig.Visible = false;
             btnStart.Visible = false;
             timer.Enabled = true;
-        }
-
-        private void serialPort_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
-        {
-            while(serialPort.BytesToRead > 0)
-            {
-                int data = serialPort.ReadByte();
-                viewModel.ReceiveDataByte(data);
-            }
-            this.updateValues();
         }
 
         private void updateValues()
@@ -183,11 +167,14 @@ namespace MadoMagiDataCounter
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            serialPort.Close();
             btnStop.Visible = false;
             btnStart.Visible = true;
             cmbCom.Visible = true;
             timer.Enabled = false;
+            btnConfig.Visible = true;
+
+            if (activePort == null) return;
+            activePort.Stop();
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -203,6 +190,28 @@ namespace MadoMagiDataCounter
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Properties.Settings.Default.Save();
+
+            if (activePort == null) return;
+            activePort.Stop();
+        }
+
+        private void cmbCom_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            activePort = inputPorts[cmbCom.SelectedIndex];
+            var settingsView = activePort.GetSettingsPanel();
+            btnConfig.Enabled = (settingsView != null);
+        }
+
+        private void btnConfig_Click(object sender, EventArgs e)
+        {
+            if (activePort == null) return;
+            var settingsView = activePort.GetSettingsPanel();
+            if (settingsView == null) return;
+
+            var configDialog = new frmInterfaceConfig();
+            configDialog.Configurator = settingsView;
+            configDialog.Text += ": " + activePort.Name;
+            configDialog.ShowDialog();
         }
     }
 }

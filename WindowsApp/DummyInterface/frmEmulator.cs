@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MadoMagiDataCounter
+namespace DummyInterface
 {
     public partial class frmEmulator : Form
     {

@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using DataCounterCommon;
 
 namespace MadoMagiDataCounter
 {
-    class MagiCounter
+    class MagiCounter: ISink<int>
     {
         private int lastData = 0xFF;
         public MagiCounterValues State { get; private set; }
         public MagiCounterTimes Timer { get; private set; }
         public MagiBonusHistoryController History { get; private set; }
+        public event EventHandler<MagiCounterValues> OnUpdate;
 
         private Timer gameCountTimer = new Timer();
         private Timer payoutTimer = new Timer();
@@ -66,7 +68,7 @@ namespace MadoMagiDataCounter
             payoutTimer.Stop();
         }
 
-        public void ReceiveDataByte(int data)
+        public void Signal(int data)
         {
             if (data != lastData)
             {
@@ -127,6 +129,7 @@ namespace MadoMagiDataCounter
                 }
 
                 lastData = data;
+                OnUpdate.Invoke(this, State);
             }
         }
     }

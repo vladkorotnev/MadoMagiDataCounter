@@ -133,13 +133,13 @@ namespace MadoMagiDataCounter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("COM5")]
-        public string LastCOM {
+        [global::System.Configuration.DefaultSettingValueAttribute("Serial")]
+        public string LastInterfaceName {
             get {
-                return ((string)(this["LastCOM"]));
+                return ((string)(this["LastInterfaceName"]));
             }
             set {
-                this["LastCOM"] = value;
+                this["LastInterfaceName"] = value;
             }
         }
         
