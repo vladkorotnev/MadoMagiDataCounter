@@ -1,5 +1,5 @@
 ﻿
-namespace MadoMagiDataCounter
+namespace DummyInterface
 {
     partial class frmEmulator
     {
@@ -155,7 +155,7 @@ namespace MadoMagiDataCounter
             this.MinimizeBox = false;
             this.Name = "frmEmulator";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.Text = "TEST MODE";
+            this.Text = "TEST I/F";
             this.ResumeLayout(false);
 
         }

@@ -4,6 +4,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.32802.440
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCounter", "DataCounterTrial\DataCounter.csproj", "{1F251369-C00F-4DA4-A0FB-8F0E89325D3B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6A952941-455D-4DD8-93B7-889CD2814092} = {6A952941-455D-4DD8-93B7-889CD2814092}
+		{1E86744C-DC2A-44D0-B0FA-6D64C6ED4F79} = {1E86744C-DC2A-44D0-B0FA-6D64C6ED4F79}
+		{3420AB65-BB7F-4F64-8904-C819BD92D793} = {3420AB65-BB7F-4F64-8904-C819BD92D793}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCounterCommon", "DataCounterCommon\DataCounterCommon.csproj", "{C761C644-998C-4763-B840-70572BA1ADA3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interfaces", "Interfaces", "{2D8F545C-36CE-4F21-86EE-D7E4C80DB98F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DummyInterface", "DummyInterface\DummyInterface.csproj", "{3420AB65-BB7F-4F64-8904-C819BD92D793}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialInterface", "SerialInterface\SerialInterface.csproj", "{6A952941-455D-4DD8-93B7-889CD2814092}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LANInterface", "LANInterface\LANInterface.csproj", "{1E86744C-DC2A-44D0-B0FA-6D64C6ED4F79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +30,30 @@ Global
 		{1F251369-C00F-4DA4-A0FB-8F0E89325D3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F251369-C00F-4DA4-A0FB-8F0E89325D3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F251369-C00F-4DA4-A0FB-8F0E89325D3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C761C644-998C-4763-B840-70572BA1ADA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C761C644-998C-4763-B840-70572BA1ADA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C761C644-998C-4763-B840-70572BA1ADA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C761C644-998C-4763-B840-70572BA1ADA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3420AB65-BB7F-4F64-8904-C819BD92D793}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3420AB65-BB7F-4F64-8904-C819BD92D793}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3420AB65-BB7F-4F64-8904-C819BD92D793}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3420AB65-BB7F-4F64-8904-C819BD92D793}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A952941-455D-4DD8-93B7-889CD2814092}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A952941-455D-4DD8-93B7-889CD2814092}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A952941-455D-4DD8-93B7-889CD2814092}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A952941-455D-4DD8-93B7-889CD2814092}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E86744C-DC2A-44D0-B0FA-6D64C6ED4F79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E86744C-DC2A-44D0-B0FA-6D64C6ED4F79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E86744C-DC2A-44D0-B0FA-6D64C6ED4F79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E86744C-DC2A-44D0-B0FA-6D64C6ED4F79}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3420AB65-BB7F-4F64-8904-C819BD92D793} = {2D8F545C-36CE-4F21-86EE-D7E4C80DB98F}
+		{6A952941-455D-4DD8-93B7-889CD2814092} = {2D8F545C-36CE-4F21-86EE-D7E4C80DB98F}
+		{1E86744C-DC2A-44D0-B0FA-6D64C6ED4F79} = {2D8F545C-36CE-4F21-86EE-D7E4C80DB98F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DB9A51A7-4C7E-467F-8684-3B5D536C026E}

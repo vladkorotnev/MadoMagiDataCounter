@@ -29,8 +29,8 @@
     <Setting Name="Unk2Title" Type="System.String" Scope="User">
       <Value Profile="(Default)">?? 2</Value>
     </Setting>
-    <Setting Name="LastCOM" Type="System.String" Scope="User">
-      <Value Profile="(Default)">COM5</Value>
+    <Setting Name="LastInterfaceName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Serial</Value>
     </Setting>
     <Setting Name="SpinCountTitle" Type="System.String" Scope="User">
       <Value Profile="(Default)">Spins</Value>
