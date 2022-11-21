@@ -7,29 +7,31 @@ using System.Timers;
 
 namespace DataCounterCommon.Elements
 {
-    public class Extractor: Source<Signal>, ISink<int>
+    public class Cooldown: SignalSource, ISignalSink, IResetable
     {
-        public int BitNumber { get; set; }
-        public bool ActiveHigh { get; set; }
+        public double Delay { get; set; }
+        private DateTime _lastEvent = DateTime.MinValue;
 
-        public Extractor() { }
-        public Extractor(int bitNo): this()
+        public Cooldown(double delayMs = 500)
         {
-            BitNumber = bitNo;
+            Delay = delayMs;
         }
 
-
-        public void Signal(int data)
+        public void Signal()
         {
-            bool newBitState = (data & (1 << BitNumber)) != 0;
-            if(newBitState == !ActiveHigh)
+            if((DateTime.Now - _lastEvent).TotalMilliseconds >= Delay)
             {
-                NotifySinks(DataCounterCommon.Signal.v);
+                NotifySinks();
+                _lastEvent = DateTime.Now;
             }
         }
-    }
 
-    public class Threshold: Source<Signal>, ISink<Signal>
+        public void Reset()
+        {
+            _lastEvent = DateTime.MinValue;
+        }
+    }
+    public class Threshold: SignalSource, ISignalSink, IResetable
     {
         public double Delay { 
             get { return timer.Interval; }
@@ -56,14 +58,14 @@ namespace DataCounterCommon.Elements
             {
                 if(count >= Divisor)
                 {
-                    NotifySinks(DataCounterCommon.Signal.v);
+                    NotifySinks();
                 }
             } 
             else
             {
                 while (count >= Divisor)
                 {
-                    NotifySinks(DataCounterCommon.Signal.v);
+                    NotifySinks();
                     count -= Divisor;
                 }
             }
@@ -71,10 +73,17 @@ namespace DataCounterCommon.Elements
             timer.Stop();
         }
 
-        public void Signal(Signal _)
+        public void Signal()
         {
+            count += 1;
             timer.Stop();
             timer.Start();
+        }
+
+        public void Reset()
+        {
+            timer.Stop();
+            count = 0;
         }
     }
 }

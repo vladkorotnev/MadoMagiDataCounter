@@ -29,32 +29,11 @@ namespace MadoMagiDataCounter
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint11 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 100D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint12 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 50D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint13 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 254D);
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint14 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint15 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint16 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 1D);
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint17 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 1D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint18 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 1D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint19 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint20 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(2D, 0D);
             this.cmbCom = new System.Windows.Forms.ComboBox();
             this.btnRstAll = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
-            this.timer = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.chartBonuses = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chartMoney = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnConfig = new System.Windows.Forms.Button();
             this.stsGameCount = new MadoMagiDataCounter.CountView();
             this.stsSpinCount = new MadoMagiDataCounter.CountView();
@@ -67,8 +46,8 @@ namespace MadoMagiDataCounter
             this.stsUnknown2 = new MadoMagiDataCounter.CountView();
             this.stsBigBonus = new MadoMagiDataCounter.CountView();
             this.stsAlert = new MadoMagiDataCounter.CountView();
-            ((System.ComponentModel.ISupportInitialize)(this.chartBonuses)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartMoney)).BeginInit();
+            this.slumpGraph = new MadoMagiDataCounter.SlumpGraph();
+            this.barGraph = new MadoMagiDataCounter.BarGraph();
             this.SuspendLayout();
             // 
             // cmbCom
@@ -115,11 +94,6 @@ namespace MadoMagiDataCounter
             this.btnStop.Visible = false;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
-            // timer
-            // 
-            this.timer.Interval = 500;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -128,123 +102,6 @@ namespace MadoMagiDataCounter
             this.label1.Size = new System.Drawing.Size(162, 13);
             this.label1.TabIndex = 16;
             this.label1.Text = "by Akasaka/Genjitsu Labs, 2022";
-            // 
-            // chartBonuses
-            // 
-            this.chartBonuses.BackColor = System.Drawing.Color.Transparent;
-            chartArea3.AxisX.IsLabelAutoFit = false;
-            chartArea3.AxisX.LabelStyle.Font = new System.Drawing.Font("MS Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartArea3.AxisX.LabelStyle.ForeColor = System.Drawing.Color.DarkGray;
-            chartArea3.AxisX.LineColor = System.Drawing.Color.DarkGray;
-            chartArea3.AxisX.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
-            chartArea3.AxisX.TitleForeColor = System.Drawing.Color.DarkGray;
-            chartArea3.AxisY.IsLabelAutoFit = false;
-            chartArea3.AxisY.LabelStyle.Font = new System.Drawing.Font("MS Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartArea3.AxisY.LabelStyle.ForeColor = System.Drawing.Color.DarkGray;
-            chartArea3.AxisY.LineColor = System.Drawing.Color.DarkGray;
-            chartArea3.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
-            chartArea3.AxisY.TitleForeColor = System.Drawing.Color.White;
-            chartArea3.AxisY2.IsLabelAutoFit = false;
-            chartArea3.AxisY2.LabelStyle.Enabled = false;
-            chartArea3.AxisY2.MajorGrid.Enabled = false;
-            chartArea3.AxisY2.Maximum = 10D;
-            chartArea3.AxisY2.Minimum = 0D;
-            chartArea3.BackColor = System.Drawing.Color.Transparent;
-            chartArea3.BackSecondaryColor = System.Drawing.Color.Transparent;
-            chartArea3.BorderColor = System.Drawing.Color.White;
-            chartArea3.Name = "ChartArea1";
-            this.chartBonuses.ChartAreas.Add(chartArea3);
-            this.chartBonuses.Location = new System.Drawing.Point(12, 260);
-            this.chartBonuses.Margin = new System.Windows.Forms.Padding(0);
-            this.chartBonuses.Name = "chartBonuses";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn;
-            series6.Font = new System.Drawing.Font("MS Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series6.Label = "#VAL{N0}G";
-            series6.LabelForeColor = System.Drawing.Color.White;
-            series6.Name = "srsSpins";
-            series6.Points.Add(dataPoint11);
-            series6.Points.Add(dataPoint12);
-            series6.Points.Add(dataPoint13);
-            series6.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.Yes;
-            series6.SmartLabelStyle.CalloutLineColor = System.Drawing.Color.DarkGray;
-            series6.SmartLabelStyle.MaxMovingDistance = 100D;
-            series7.ChartArea = "ChartArea1";
-            series7.CustomProperties = "DrawSideBySide=True, DrawingStyle=Emboss, EmptyPointValue=Zero, PointWidth=1";
-            series7.Name = "srsBonusKindBig";
-            series7.Points.Add(dataPoint14);
-            series7.Points.Add(dataPoint15);
-            series7.Points.Add(dataPoint16);
-            series7.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series8.ChartArea = "ChartArea1";
-            series8.CustomProperties = "DrawSideBySide=False, DrawingStyle=Emboss, PointWidth=1";
-            series8.Name = "srsBonusKindSmall";
-            series8.Points.Add(dataPoint17);
-            series8.Points.Add(dataPoint18);
-            series8.Points.Add(dataPoint19);
-            series8.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            this.chartBonuses.Series.Add(series6);
-            this.chartBonuses.Series.Add(series7);
-            this.chartBonuses.Series.Add(series8);
-            this.chartBonuses.Size = new System.Drawing.Size(228, 149);
-            this.chartBonuses.TabIndex = 17;
-            this.chartBonuses.Text = "chart1";
-            // 
-            // chartMoney
-            // 
-            this.chartMoney.BackColor = System.Drawing.Color.Transparent;
-            chartArea4.AxisX.IsLabelAutoFit = false;
-            chartArea4.AxisX.LabelStyle.Font = new System.Drawing.Font("MS Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartArea4.AxisX.LabelStyle.ForeColor = System.Drawing.Color.DarkGray;
-            chartArea4.AxisX.LineColor = System.Drawing.Color.DarkGray;
-            chartArea4.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray;
-            chartArea4.AxisX.Minimum = 0D;
-            chartArea4.AxisX.TitleForeColor = System.Drawing.Color.DarkGray;
-            chartArea4.AxisY.IsLabelAutoFit = false;
-            chartArea4.AxisY.IsStartedFromZero = false;
-            chartArea4.AxisY.LabelStyle.Font = new System.Drawing.Font("MS Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartArea4.AxisY.LabelStyle.ForeColor = System.Drawing.Color.DarkGray;
-            chartArea4.AxisY.LineColor = System.Drawing.Color.DarkGray;
-            chartArea4.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray;
-            chartArea4.AxisY.TitleForeColor = System.Drawing.Color.White;
-            chartArea4.AxisY2.IsLabelAutoFit = false;
-            chartArea4.AxisY2.LabelStyle.Enabled = false;
-            chartArea4.AxisY2.MajorGrid.Enabled = false;
-            chartArea4.AxisY2.Maximum = 10D;
-            chartArea4.AxisY2.Minimum = 0D;
-            chartArea4.BackColor = System.Drawing.Color.Transparent;
-            chartArea4.BackSecondaryColor = System.Drawing.Color.Transparent;
-            chartArea4.BorderColor = System.Drawing.Color.Transparent;
-            chartArea4.Name = "ChartArea1";
-            this.chartMoney.ChartAreas.Add(chartArea4);
-            this.chartMoney.Location = new System.Drawing.Point(243, 260);
-            this.chartMoney.Name = "chartMoney";
-            series9.BorderWidth = 3;
-            series9.ChartArea = "ChartArea1";
-            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series9.Color = System.Drawing.Color.White;
-            series9.Font = new System.Drawing.Font("MS Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            series9.LabelForeColor = System.Drawing.Color.White;
-            series9.Name = "srsMoney";
-            series9.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.Yes;
-            series9.SmartLabelStyle.CalloutLineColor = System.Drawing.Color.DarkGray;
-            series9.SmartLabelStyle.MaxMovingDistance = 100D;
-            series10.ChartArea = "ChartArea1";
-            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series10.LabelBackColor = System.Drawing.Color.DarkGray;
-            series10.LabelBorderColor = System.Drawing.Color.Gray;
-            series10.MarkerSize = 8;
-            series10.Name = "srsBbPoints";
-            dataPoint20.Color = System.Drawing.Color.Red;
-            dataPoint20.Label = "BB";
-            series10.Points.Add(dataPoint20);
-            series10.SmartLabelStyle.CalloutBackColor = System.Drawing.Color.DarkGray;
-            series10.SmartLabelStyle.CalloutLineColor = System.Drawing.Color.DarkGray;
-            this.chartMoney.Series.Add(series9);
-            this.chartMoney.Series.Add(series10);
-            this.chartMoney.Size = new System.Drawing.Size(465, 149);
-            this.chartMoney.TabIndex = 18;
-            this.chartMoney.Text = "chart1";
             // 
             // btnConfig
             // 
@@ -390,16 +247,32 @@ namespace MadoMagiDataCounter
             this.stsAlert.Title = global::MadoMagiDataCounter.Properties.Settings.Default.AlertTitle;
             this.stsAlert.Value = ".";
             // 
+            // slumpGraph
+            // 
+            this.slumpGraph.BackColor = System.Drawing.Color.Transparent;
+            this.slumpGraph.Location = new System.Drawing.Point(246, 233);
+            this.slumpGraph.Name = "slumpGraph";
+            this.slumpGraph.Size = new System.Drawing.Size(476, 165);
+            this.slumpGraph.TabIndex = 21;
+            // 
+            // barGraph
+            // 
+            this.barGraph.BackColor = System.Drawing.Color.Transparent;
+            this.barGraph.Location = new System.Drawing.Point(10, 233);
+            this.barGraph.Name = "barGraph";
+            this.barGraph.Size = new System.Drawing.Size(230, 165);
+            this.barGraph.TabIndex = 22;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(734, 452);
+            this.Controls.Add(this.barGraph);
+            this.Controls.Add(this.slumpGraph);
             this.Controls.Add(this.btnConfig);
             this.Controls.Add(this.stsGameCount);
-            this.Controls.Add(this.chartMoney);
-            this.Controls.Add(this.chartBonuses);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.stsSpinCount);
             this.Controls.Add(this.stsTime);
@@ -423,8 +296,6 @@ namespace MadoMagiDataCounter
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Click += new System.EventHandler(this.Form1_Click);
-            ((System.ComponentModel.ISupportInitialize)(this.chartBonuses)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartMoney)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -445,13 +316,12 @@ namespace MadoMagiDataCounter
         private System.Windows.Forms.Button btnStop;
         private CountView stsReturn;
         private CountView stsTime;
-        private System.Windows.Forms.Timer timer;
         private CountView stsSpinCount;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartBonuses;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartMoney;
         private CountView stsGameCount;
         private System.Windows.Forms.Button btnConfig;
+        private SlumpGraph slumpGraph;
+        private BarGraph barGraph;
     }
 }
 

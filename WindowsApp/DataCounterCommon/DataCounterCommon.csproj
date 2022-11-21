@@ -42,7 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CounterCircuit.cs" />
+    <Compile Include="Elements\Counter.cs" />
     <Compile Include="Elements\Delay.cs" />
+    <Compile Include="Elements\TimeCounter.cs" />
+    <Compile Include="Elements\Trigger.cs" />
     <Compile Include="ICounterInput.cs" />
     <Compile Include="PluginLoader.cs" />
     <Compile Include="Elements\Primitives.cs" />
