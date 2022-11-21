@@ -37,36 +37,37 @@ namespace MadoMagiDataCounter
             }
             cmbCom.SelectedIndex = cmbCom.Items.IndexOf(Properties.Settings.Default.LastInterfaceName);
 
-            circuit.Credits.ConnectReceiver(stsCredits);
-            circuit.Credits.ConnectReceiver(calculator.inCredits);
+            circuit.Credits.Connect(stsCredits);
+            circuit.Credits.Connect(calculator.inCredits);
 
-            circuit.Payout.ConnectReceiver(stsPayout);
-            circuit.Payout.ConnectReceiver(calculator.inPayouts);
+            circuit.Payout.Connect(stsPayout);
+            circuit.Payout.Connect(calculator.inPayouts);
 
-            circuit.BigBonus.ConnectReceiver(stsBigBonus);
-            circuit.BigBonusPulse.ConnectReceiver(slumpGraph.inBigBonus);
-            circuit.BigBonusPulse.ConnectReceiver(barGraph.inBigBonus);
+            circuit.BigBonus.Connect(stsBigBonus);
+            circuit.BigBonusPulse.Connect(slumpGraph.inBigBonus);
+            circuit.BigBonusPulse.Connect(barGraph.inBigBonus);
 
-            circuit.RegularBonus.ConnectReceiver(stsSmallBonus);
-            circuit.RegularBonusPulse.ConnectReceiver(slumpGraph.inRegBonus);
-            circuit.RegularBonusPulse.ConnectReceiver(barGraph.inRegBonus);
+            circuit.RegularBonus.Connect(stsSmallBonus);
+            circuit.RegularBonusPulse.Connect(slumpGraph.inRegBonus);
+            circuit.RegularBonusPulse.Connect(barGraph.inRegBonus);
 
-            circuit.Spins.ConnectReceiver(stsSpinCount);
-            circuit.Spins.ConnectReceiver(slumpGraph.inSpins);
+            circuit.Spins.Connect(stsSpinCount);
+            circuit.Spins.Connect(slumpGraph.inSpins);
 
-            circuit.Games.ConnectReceiver(stsGameCount);
-            circuit.Games.ConnectReceiver(slumpGraph.inGames);
-            circuit.Games.ConnectReceiver(barGraph.inGames);
+            circuit.Games.Connect(stsGameCount);
+            circuit.Games.Connect(slumpGraph.inGames);
+            circuit.Games.Connect(barGraph.inGames);
 
-            circuit.Alarm.ConnectReceiver(stsAlert);
-            circuit.WallTime.ConnectReceiver(stsTime);
+            circuit.Alarm.Connect(stsAlert);
+            circuit.WallTime.Connect(stsTime);
 
-            calculator.outRatio.ConnectReceiver(stsReturn);
-            calculator.outBalance.ConnectReceiver(slumpGraph.inBalance);
+            calculator.outRatio.Connect(stsReturn);
+            calculator.outBalance.Connect(slumpGraph.inBalance);
+            calculator.outBalance.Connect(stsBalance);
 
             var nextPointPulse = new Cooldown();
-            circuit.CreditPulse.ConnectReceiver(nextPointPulse);
-            nextPointPulse.ConnectReceiver(slumpGraph.inNextPoint);
+            circuit.CreditPulse.Connect(nextPointPulse);
+            nextPointPulse.Connect(slumpGraph.inNextPoint);
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -94,11 +95,12 @@ namespace MadoMagiDataCounter
             btnConfig.Visible = false;
             btnStart.Visible = false;
 
-            // Set up a counter graph
             circuit.InputNub = activePort;
             circuit.Reset();
             slumpGraph.Reset();
             barGraph.Reset();
+
+            Text = String.Format("DataCounter: connected on {0}", activePort.Name);
         }
 
         private void btnRstAll_Click(object sender, EventArgs e)
@@ -117,6 +119,7 @@ namespace MadoMagiDataCounter
             btnStart.Visible = true;
             cmbCom.Visible = true;
             btnConfig.Visible = true;
+            Text = "DataCounter";
 
             if (activePort == null) return;
             activePort.Stop();
@@ -152,6 +155,52 @@ namespace MadoMagiDataCounter
             configDialog.Configurator = settingsView;
             configDialog.Text += ": " + activePort.Name;
             configDialog.ShowDialog();
+            if(settingsView is ISettingsPanel)
+            {
+                ((ISettingsPanel)settingsView).Apply();
+            }
+        }
+
+        Form slumpGraphPopOut = null;
+        Form barGraphPopOut = null;
+
+        private void PopOutGraph(string title, Control graph, ref Form form)
+        {
+            if(graph.Parent == this)
+            {
+                form = new Form();
+                form.BackColor = Color.Black;
+                form.FormBorderStyle = FormBorderStyle.Sizable;
+                form.Text = title;
+                form.Controls.Add(graph);
+                graph.Parent = form;
+                graph.Dock = DockStyle.Fill;
+                form.Show();
+                form.FormClosing += PopOutPutBack;
+            } 
+            else if(graph.Parent == form)
+            {
+                form.Close();
+                form = null;
+            }
+        }
+
+        private void PopOutPutBack(object sender, FormClosingEventArgs e)
+        {
+            var chart = ((Form)sender).Controls[0];
+            this.Controls.Add(chart);
+            chart.Parent = this;
+            chart.Dock = DockStyle.None;
+        }
+
+        private void btnUndockSlump_Click(object sender, EventArgs e)
+        {
+            PopOutGraph("Slump Graph", slumpGraph, ref slumpGraphPopOut);
+        }
+
+        private void btnUndockBar_Click(object sender, EventArgs e)
+        {
+            PopOutGraph("Bar Graph", barGraph, ref barGraphPopOut);
         }
     }
 }

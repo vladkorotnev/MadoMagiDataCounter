@@ -26,8 +26,8 @@ namespace DataCounterCommon
     public interface ISource<T>: ICounterNode
     {
         List<ISink<T>> Receivers { get; }
-        void ConnectReceiver(ISink<T> receiver);
-        void ConnectReceivers(params ISink<T>[] receiver);
+        void Connect(ISink<T> receiver);
+        void Connect(params ISink<T>[] receiver);
     }
 
     public interface ISignalSource: ICounterNode
@@ -54,12 +54,12 @@ namespace DataCounterCommon
             }
         }
 
-        public void ConnectReceiver(ISink<T> receiver)
+        public void Connect(ISink<T> receiver)
         {
             Receivers.Add(receiver);
         }
 
-        public void ConnectReceivers(params ISink<T>[] receiver)
+        public void Connect(params ISink<T>[] receiver)
         {
             Receivers.AddRange(receiver);
         }
@@ -82,7 +82,7 @@ namespace DataCounterCommon
             }
         }
 
-        public void ConnectReceiver(ISignalSink receiver)
+        public void Connect(ISignalSink receiver)
         {
             Receivers.Add(receiver);
         }
@@ -115,7 +115,7 @@ namespace DataCounterCommon
             Receivers.Add(receiver);
         }
 
-        public void ConnectReceivers(params IResetable[] receiver)
+        public void Connect(params IResetable[] receiver)
         {
             Receivers.AddRange(receiver);
         }

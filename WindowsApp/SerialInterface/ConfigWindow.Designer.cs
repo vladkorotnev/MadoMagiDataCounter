@@ -54,8 +54,7 @@ namespace SerialInterface
             this.cmbPort.Size = new System.Drawing.Size(140, 21);
             this.cmbPort.TabIndex = 1;
             this.cmbPort.Text = global::SerialInterface.Properties.Settings.Default.LastCOM;
-            this.cmbPort.SelectedValueChanged += new System.EventHandler(this.SomethingChanged);
-            this.cmbPort.TabStopChanged += new System.EventHandler(this.SomethingChanged);
+            this.cmbPort.TextChanged += new System.EventHandler(this.SomethingChanged);
             // 
             // cmbBaud
             // 
@@ -77,7 +76,6 @@ namespace SerialInterface
             this.cmbBaud.Size = new System.Drawing.Size(140, 21);
             this.cmbBaud.TabIndex = 3;
             this.cmbBaud.Text = global::SerialInterface.Properties.Settings.Default.LastBaud;
-            this.cmbBaud.SelectedValueChanged += new System.EventHandler(this.SomethingChanged);
             this.cmbBaud.TextChanged += new System.EventHandler(this.SomethingChanged);
             // 
             // label2
@@ -97,7 +95,7 @@ namespace SerialInterface
             this.Controls.Add(this.cmbPort);
             this.Controls.Add(this.label1);
             this.Name = "ConfigWindow";
-            this.Size = new System.Drawing.Size(150, 101);
+            this.Size = new System.Drawing.Size(150, 102);
             this.ResumeLayout(false);
 
         }

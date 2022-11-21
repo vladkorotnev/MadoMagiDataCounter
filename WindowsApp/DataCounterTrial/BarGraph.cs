@@ -29,7 +29,7 @@ namespace MadoMagiDataCounter
                 if (InvokeRequired) Invoke(x);
                 else x();
             }));
-            inBigBonus.ConnectReceiver(markBigBonus);
+            inBigBonus.Connect(markBigBonus);
 
             var markRegBonus = new ActionReceiver(new Action(delegate ()
             {
@@ -37,7 +37,7 @@ namespace MadoMagiDataCounter
                 if (InvokeRequired) Invoke(x);
                 else x();
             }));
-            inRegBonus.ConnectReceiver(markRegBonus);
+            inRegBonus.Connect(markRegBonus);
 
 
             var updateGameCount = new ActionReceiver<int>(new Action<int>(delegate (int gameCount)
@@ -52,7 +52,7 @@ namespace MadoMagiDataCounter
                 if (InvokeRequired) Invoke(x);
                 else x();
             }));
-            inGames.ConnectReceiver(updateGameCount);
+            inGames.Connect(updateGameCount);
 
             InitializeComponent();
         }

@@ -7,17 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataCounterCommon;
 
 namespace SerialInterface
 {
-    public partial class ConfigWindow : UserControl
+    public partial class ConfigWindow : UserControl, ISettingsPanel
     {
         public ConfigWindow()
         {
             InitializeComponent();
         }
 
-        private void Apply()
+        public void Apply()
         {
             Properties.Settings.Default.Save();
         }

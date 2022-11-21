@@ -14,6 +14,11 @@ namespace DataCounterCommon
         Running
     }
 
+    public interface ISettingsPanel
+    {
+        void Apply();
+    }
+
     public interface ICounterInput: ISource<int>
     {
         Control GetSettingsPanel();

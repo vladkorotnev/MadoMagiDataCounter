@@ -26,7 +26,7 @@ namespace DataCounterCommon
                 _activeInput = value;
                 if(_activeInput != null)
                 {
-                    _activeInput.ConnectReceiver(_inputRelay);
+                    _activeInput.Connect(_inputRelay);
                 }
             }
         }

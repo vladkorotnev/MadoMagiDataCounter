@@ -34,8 +34,8 @@ namespace MadoMagiDataCounter
                 outBalance.Signal(payouts - credits);
             }));
 
-            inCredits.ConnectReceiver(x);
-            inPayouts.ConnectReceiver(x);
+            inCredits.Connect(x);
+            inPayouts.Connect(x);
         }
     }
 
@@ -71,7 +71,7 @@ namespace MadoMagiDataCounter
             var regBonusPulse = new Trigger(3);
             var bigBonusPulse = new Trigger(1);
             var alarmSignal = new Extractor(0);
-            InputNub.ConnectReceivers(
+            InputNub.Connect(
                     creditPulse,
                     payoutPulse,
                     regBonusPulse,
@@ -81,26 +81,26 @@ namespace MadoMagiDataCounter
 
             // Expose some signals directly
             RegularBonusPulse = new SignalRelay();
-            regBonusPulse.ConnectReceiver(RegularBonusPulse);
+            regBonusPulse.Connect(RegularBonusPulse);
             BigBonusPulse = new SignalRelay();
-            bigBonusPulse.ConnectReceiver(BigBonusPulse);
+            bigBonusPulse.Connect(BigBonusPulse);
             Alarm = new Relay<bool>();
-            alarmSignal.ConnectReceiver(Alarm);
+            alarmSignal.Connect(Alarm);
             CreditPulse = new SignalRelay();
-            creditPulse.ConnectReceiver(CreditPulse);
+            creditPulse.Connect(CreditPulse);
 
             // Create the main counters
             var creditCounter = new Counter();
-            creditPulse.ConnectReceiver(creditCounter);
+            creditPulse.Connect(creditCounter);
             var payoutCounter = new Counter();
-            payoutPulse.ConnectReceiver(payoutCounter);
+            payoutPulse.Connect(payoutCounter);
             var bigBonusCounter = new Counter();
-            bigBonusPulse.ConnectReceiver(bigBonusCounter);
+            bigBonusPulse.Connect(bigBonusCounter);
             var regBonusCounter = new Counter();
-            regBonusPulse.ConnectReceiver(regBonusCounter);
+            regBonusPulse.Connect(regBonusCounter);
 
             // Wire up the reset signal
-            _globalReset.ConnectReceivers(
+            _globalReset.Connect(
                 creditCounter,
                 payoutCounter,
                 bigBonusCounter,
@@ -112,49 +112,49 @@ namespace MadoMagiDataCounter
             Payout = new Relay<int>();
             BigBonus = new Relay<int>();
             RegularBonus = new Relay<int>();
-            creditCounter.ConnectReceiver(Credits);
-            payoutCounter.ConnectReceiver(Payout);
-            bigBonusCounter.ConnectReceiver(BigBonus);
-            regBonusCounter.ConnectReceiver(RegularBonus);
+            creditCounter.Connect(Credits);
+            payoutCounter.Connect(Payout);
+            bigBonusCounter.Connect(BigBonus);
+            regBonusCounter.Connect(RegularBonus);
 
             // Infer a SPIN by delaying after a bunch of credit pulses
             var spinPulse = new Threshold();
-            creditPulse.ConnectReceiver(spinPulse);
+            creditPulse.Connect(spinPulse);
             var spinCounter = new Counter();
             _globalReset.ConnectReceiver(spinCounter);
-            spinPulse.ConnectReceiver(spinCounter);
+            spinPulse.Connect(spinCounter);
             // Expose the counter and pulse
             Spins = new Relay<int>();
-            spinCounter.ConnectReceiver(Spins);
+            spinCounter.Connect(Spins);
             SpinPulse = new SignalRelay();
-            spinPulse.ConnectReceiver(SpinPulse);
+            spinPulse.Connect(SpinPulse);
 
             // Infer a GAME by checking that we spent exactly N credits
             var gamePulse = new Threshold(BET_OF_ONE_GAME);
-            creditPulse.ConnectReceiver(gamePulse);
+            creditPulse.Connect(gamePulse);
             var gameCounter = new Counter();
             _globalReset.ConnectReceiver(gameCounter);
-            gamePulse.ConnectReceiver(gameCounter);
+            gamePulse.Connect(gameCounter);
             // Expose the counter and pulse
             Games = new Relay<int>();
-            gameCounter.ConnectReceiver(Games);
+            gameCounter.Connect(Games);
             GamePulse = new SignalRelay();
-            gamePulse.ConnectReceiver(GamePulse);
+            gamePulse.Connect(GamePulse);
 
             // Reset the game and spin counters some time after the bonus has hit
             var bonusResetDelay = new Threshold(1, true, 250);
-            bigBonusPulse.ConnectReceiver(bonusResetDelay);
-            regBonusPulse.ConnectReceiver(bonusResetDelay);
+            bigBonusPulse.Connect(bonusResetDelay);
+            regBonusPulse.Connect(bonusResetDelay);
             var bonusResetSignal = new Resetter();
-            bonusResetSignal.ConnectReceivers(gameCounter, spinCounter);
-            bonusResetDelay.ConnectReceiver(bonusResetSignal);
+            bonusResetSignal.Connect(gameCounter, spinCounter);
+            bonusResetDelay.Connect(bonusResetSignal);
 
             // Create a wall clock that starts with the first spin
             var clock = new TimeCounter();
             _globalReset.ConnectReceiver(clock);
             WallTime = new Relay<TimeSpan>();
-            clock.ConnectReceiver(WallTime);
-            gamePulse.ConnectReceiver(clock);
+            clock.Connect(WallTime);
+            gamePulse.Connect(clock);
         }
 
         public void Reset()

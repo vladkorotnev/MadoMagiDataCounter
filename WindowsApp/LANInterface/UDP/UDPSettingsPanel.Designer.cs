@@ -74,7 +74,6 @@ namespace LANInterface
             this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown1.TabIndex = 3;
             this.numericUpDown1.Value = global::LANInterface.Properties.Settings.Default.UDPPort;
-            this.numericUpDown1.ValueChanged += new System.EventHandler(this.SomethingChanged);
             // 
             // textBox1
             // 
@@ -86,7 +85,6 @@ namespace LANInterface
             this.textBox1.Size = new System.Drawing.Size(120, 20);
             this.textBox1.TabIndex = 1;
             this.textBox1.Text = global::LANInterface.Properties.Settings.Default.UDPBind;
-            this.textBox1.TextChanged += new System.EventHandler(this.SomethingChanged);
             // 
             // UDPSettingsPanel
             // 

@@ -41,7 +41,7 @@ namespace MadoMagiDataCounter
                 if (InvokeRequired) Invoke(x);
                 else x();
             }));
-            inNextPoint.ConnectReceiver(createNextDot);
+            inNextPoint.Connect(createNextDot);
 
             var updateCurrentDotPosition = new ActionReceiver<int>(new Action<int>(delegate (int balance)
             {
@@ -55,7 +55,7 @@ namespace MadoMagiDataCounter
                 if (InvokeRequired) Invoke(x);
                 else x();
             }));
-            inBalance.ConnectReceiver(updateCurrentDotPosition);
+            inBalance.Connect(updateCurrentDotPosition);
 
             var placeRegBonusDot = new ActionReceiver(new Action(delegate ()
             {
@@ -66,7 +66,7 @@ namespace MadoMagiDataCounter
                 if (InvokeRequired) Invoke(x);
                 else x();
             }));
-            inRegBonus.ConnectReceiver(placeRegBonusDot);
+            inRegBonus.Connect(placeRegBonusDot);
 
             var placeBigBonusDot = new ActionReceiver(new Action(delegate ()
             {
@@ -77,7 +77,7 @@ namespace MadoMagiDataCounter
                 if (InvokeRequired) Invoke(x);
                 else x();
             }));
-            inBigBonus.ConnectReceiver(placeBigBonusDot);
+            inBigBonus.Connect(placeBigBonusDot);
         }
 
         private void PlaceBonusDot(Color color, string label)

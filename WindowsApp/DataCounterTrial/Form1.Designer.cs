@@ -35,6 +35,9 @@ namespace MadoMagiDataCounter
             this.btnStop = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnConfig = new System.Windows.Forms.Button();
+            this.btnUndockSlump = new System.Windows.Forms.Button();
+            this.barGraph = new MadoMagiDataCounter.BarGraph();
+            this.slumpGraph = new MadoMagiDataCounter.SlumpGraph();
             this.stsGameCount = new MadoMagiDataCounter.CountView();
             this.stsSpinCount = new MadoMagiDataCounter.CountView();
             this.stsTime = new MadoMagiDataCounter.CountView();
@@ -43,11 +46,10 @@ namespace MadoMagiDataCounter
             this.stsUnknown = new MadoMagiDataCounter.CountView();
             this.stsPayout = new MadoMagiDataCounter.CountView();
             this.stsSmallBonus = new MadoMagiDataCounter.CountView();
-            this.stsUnknown2 = new MadoMagiDataCounter.CountView();
+            this.stsBalance = new MadoMagiDataCounter.CountView();
             this.stsBigBonus = new MadoMagiDataCounter.CountView();
             this.stsAlert = new MadoMagiDataCounter.CountView();
-            this.slumpGraph = new MadoMagiDataCounter.SlumpGraph();
-            this.barGraph = new MadoMagiDataCounter.BarGraph();
+            this.btnUndockBar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cmbCom
@@ -114,6 +116,33 @@ namespace MadoMagiDataCounter
             this.btnConfig.Text = "Config";
             this.btnConfig.UseVisualStyleBackColor = true;
             this.btnConfig.Click += new System.EventHandler(this.btnConfig_Click);
+            // 
+            // btnUndockSlump
+            // 
+            this.btnUndockSlump.ForeColor = System.Drawing.Color.Black;
+            this.btnUndockSlump.Location = new System.Drawing.Point(698, 233);
+            this.btnUndockSlump.Name = "btnUndockSlump";
+            this.btnUndockSlump.Size = new System.Drawing.Size(24, 23);
+            this.btnUndockSlump.TabIndex = 23;
+            this.btnUndockSlump.Text = "∆";
+            this.btnUndockSlump.UseVisualStyleBackColor = true;
+            this.btnUndockSlump.Click += new System.EventHandler(this.btnUndockSlump_Click);
+            // 
+            // barGraph
+            // 
+            this.barGraph.BackColor = System.Drawing.Color.Transparent;
+            this.barGraph.Location = new System.Drawing.Point(10, 233);
+            this.barGraph.Name = "barGraph";
+            this.barGraph.Size = new System.Drawing.Size(230, 165);
+            this.barGraph.TabIndex = 22;
+            // 
+            // slumpGraph
+            // 
+            this.slumpGraph.BackColor = System.Drawing.Color.Transparent;
+            this.slumpGraph.Location = new System.Drawing.Point(246, 233);
+            this.slumpGraph.Name = "slumpGraph";
+            this.slumpGraph.Size = new System.Drawing.Size(476, 165);
+            this.slumpGraph.TabIndex = 21;
             // 
             // stsGameCount
             // 
@@ -211,17 +240,17 @@ namespace MadoMagiDataCounter
             this.stsSmallBonus.Title = global::MadoMagiDataCounter.Properties.Settings.Default.SmallBonusTitle;
             this.stsSmallBonus.Value = "---";
             // 
-            // stsUnknown2
+            // stsBalance
             // 
-            this.stsUnknown2.BackColor = System.Drawing.Color.Transparent;
-            this.stsUnknown2.DataBindings.Add(new System.Windows.Forms.Binding("Title", global::MadoMagiDataCounter.Properties.Settings.Default, "Unk1Title", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.stsUnknown2.Location = new System.Drawing.Point(549, 68);
-            this.stsUnknown2.Name = "stsUnknown2";
-            this.stsUnknown2.Size = new System.Drawing.Size(159, 47);
-            this.stsUnknown2.TabIndex = 2;
-            this.stsUnknown2.TextWidth = 53;
-            this.stsUnknown2.Title = global::MadoMagiDataCounter.Properties.Settings.Default.Unk1Title;
-            this.stsUnknown2.Value = ".";
+            this.stsBalance.BackColor = System.Drawing.Color.Transparent;
+            this.stsBalance.DataBindings.Add(new System.Windows.Forms.Binding("Title", global::MadoMagiDataCounter.Properties.Settings.Default, "Unk1Title", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.stsBalance.Location = new System.Drawing.Point(549, 68);
+            this.stsBalance.Name = "stsBalance";
+            this.stsBalance.Size = new System.Drawing.Size(159, 47);
+            this.stsBalance.TabIndex = 2;
+            this.stsBalance.TextWidth = 53;
+            this.stsBalance.Title = global::MadoMagiDataCounter.Properties.Settings.Default.Unk1Title;
+            this.stsBalance.Value = ".";
             // 
             // stsBigBonus
             // 
@@ -247,21 +276,16 @@ namespace MadoMagiDataCounter
             this.stsAlert.Title = global::MadoMagiDataCounter.Properties.Settings.Default.AlertTitle;
             this.stsAlert.Value = ".";
             // 
-            // slumpGraph
+            // btnUndockBar
             // 
-            this.slumpGraph.BackColor = System.Drawing.Color.Transparent;
-            this.slumpGraph.Location = new System.Drawing.Point(246, 233);
-            this.slumpGraph.Name = "slumpGraph";
-            this.slumpGraph.Size = new System.Drawing.Size(476, 165);
-            this.slumpGraph.TabIndex = 21;
-            // 
-            // barGraph
-            // 
-            this.barGraph.BackColor = System.Drawing.Color.Transparent;
-            this.barGraph.Location = new System.Drawing.Point(10, 233);
-            this.barGraph.Name = "barGraph";
-            this.barGraph.Size = new System.Drawing.Size(230, 165);
-            this.barGraph.TabIndex = 22;
+            this.btnUndockBar.ForeColor = System.Drawing.Color.Black;
+            this.btnUndockBar.Location = new System.Drawing.Point(216, 230);
+            this.btnUndockBar.Name = "btnUndockBar";
+            this.btnUndockBar.Size = new System.Drawing.Size(24, 23);
+            this.btnUndockBar.TabIndex = 24;
+            this.btnUndockBar.Text = "∆";
+            this.btnUndockBar.UseVisualStyleBackColor = true;
+            this.btnUndockBar.Click += new System.EventHandler(this.btnUndockBar_Click);
             // 
             // Form1
             // 
@@ -269,6 +293,8 @@ namespace MadoMagiDataCounter
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(734, 452);
+            this.Controls.Add(this.btnUndockBar);
+            this.Controls.Add(this.btnUndockSlump);
             this.Controls.Add(this.barGraph);
             this.Controls.Add(this.slumpGraph);
             this.Controls.Add(this.btnConfig);
@@ -285,7 +311,7 @@ namespace MadoMagiDataCounter
             this.Controls.Add(this.stsUnknown);
             this.Controls.Add(this.stsPayout);
             this.Controls.Add(this.stsSmallBonus);
-            this.Controls.Add(this.stsUnknown2);
+            this.Controls.Add(this.stsBalance);
             this.Controls.Add(this.stsBigBonus);
             this.Controls.Add(this.stsAlert);
             this.ForeColor = System.Drawing.Color.White;
@@ -305,7 +331,7 @@ namespace MadoMagiDataCounter
 
         private CountView stsAlert;
         private CountView stsBigBonus;
-        private CountView stsUnknown2;
+        private CountView stsBalance;
         private CountView stsSmallBonus;
         private CountView stsPayout;
         private CountView stsUnknown;
@@ -322,6 +348,8 @@ namespace MadoMagiDataCounter
         private System.Windows.Forms.Button btnConfig;
         private SlumpGraph slumpGraph;
         private BarGraph barGraph;
+        private System.Windows.Forms.Button btnUndockSlump;
+        private System.Windows.Forms.Button btnUndockBar;
     }
 }
 

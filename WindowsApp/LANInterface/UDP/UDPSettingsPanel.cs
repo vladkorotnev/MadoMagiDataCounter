@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataCounterCommon;
 
 namespace LANInterface
 {
-    public partial class UDPSettingsPanel : UserControl
+    public partial class UDPSettingsPanel : UserControl, ISettingsPanel
     {
         public UDPSettingsPanel()
         {
@@ -18,6 +19,11 @@ namespace LANInterface
         }
 
         private void SomethingChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
+        public void Apply()
         {
             Properties.Settings.Default.Save();
         }

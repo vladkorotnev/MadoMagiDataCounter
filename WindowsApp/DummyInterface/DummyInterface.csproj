@@ -49,6 +49,7 @@
     <Compile Include="ctlDummyConfigurator.Designer.cs">
       <DependentUpon>ctlDummyConfigurator.cs</DependentUpon>
     </Compile>
+    <Compile Include="Demo.cs" />
     <Compile Include="frmEmulator.cs">
       <SubType>Form</SubType>
     </Compile>
